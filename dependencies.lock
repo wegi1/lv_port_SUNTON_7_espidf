@@ -1,10 +1,4 @@
 dependencies:
-  esp_lcd_touch:
-    dependencies: []
-    source:
-      path: D:\MY_ESP32_TRY\0\lv_port_SUNTON_7_espidf\components\esp_lcd_touch
-      type: local
-    version: 1.1.2
   espressif/button:
     component_hash: 30a3f495c3862d505ce6e41adbbd218b2750e9723ab2151feff00e9fe685b326
     dependencies:
@@ -29,46 +23,62 @@ dependencies:
       registry_url: https://components.espressif.com
       type: service
     version: 0.5.3
+  espressif/esp_lcd_touch:
+    component_hash: 3f85a7d95af876f1a6ecca8eb90a81614890d0f03a038390804e5a77e2caf862
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.4.2'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.2.1
+  espressif/esp_lcd_touch_gt911:
+    component_hash: 737bdf29e0823eacf041381e81db2aaf5d378f3b5417df7f415f83319e3e790b
+    dependencies:
+    - name: espressif/esp_lcd_touch
+      registry_url: https://components.espressif.com
+      require: public
+      version: ^1.2.0
+    - name: idf
+      require: private
+      version: '>=5.2'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.2.1
+  espressif/esp_lvgl_port:
+    component_hash: d3c020b45c3dfc0d1706a83b63a1c34a6eb444a6e935f9afff79f92b7b94dcef
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.2'
+    - name: lvgl/lvgl
+      registry_url: https://components.espressif.com
+      require: public
+      version: '>=8,<10'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 2.9.0
   idf:
     source:
       type: idf
     version: 5.5.3
   lvgl/lvgl:
-    component_hash: d5e723db3a3feca71e34e333a6598b7624e3822577d374e1d44f0e18374952e1
-    dependencies:
-    - name: espressif/freetype
-      registry_url: https://components.espressif.com
-      require: private
-      rules:
-      - if: idf_version >=5.5 && $CONFIG{LV_USE_FREETYPE} == True
-      version: ^2.14.3
-    - name: espressif/libjpeg-turbo
-      registry_url: https://components.espressif.com
-      require: private
-      rules:
-      - if: idf_version >=5.5 && $CONFIG{LV_USE_LIBJPEG_TURBO} == True
-      version: ^3.1.1
-    - name: espressif/libpng
-      registry_url: https://components.espressif.com
-      require: private
-      rules:
-      - if: idf_version >=5.5 && $CONFIG{LV_USE_LIBPNG} == True
-      version: ^1.6.58
-    - name: espressif/lz4
-      registry_url: https://components.espressif.com
-      require: private
-      rules:
-      - if: idf_version >=5.5 && $CONFIG{LV_USE_LZ4} == True && $CONFIG{LV_USE_LZ4_INTERNAL} == False
-      version: ^1.10.0
+    component_hash: 184e532558c1c45fefed631f3e235423d22582aafb4630f3e8885c35281a49ae
+    dependencies: []
     source:
       registry_url: https://components.espressif.com/
       type: service
-    version: 9.6.0
+    version: 9.5.0
 direct_dependencies:
 - espressif/button
 - espressif/esp_lcd_touch
+- espressif/esp_lcd_touch_gt911
+- espressif/esp_lvgl_port
 - idf
 - lvgl/lvgl
-manifest_hash: c24a2033079d996cd8e842b8188e1c4df537bbafc6a0a755c83fc45257ba48e0
+manifest_hash: f1e1afe452147496586c7f9cb777483d8024684de47e119605dac396799bf50c
 target: esp32s3
 version: 2.0.0

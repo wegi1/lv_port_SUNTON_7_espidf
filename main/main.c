@@ -204,7 +204,6 @@ esp_err_t lcd_clear_fast(esp_lcd_panel_handle_t panel, uint16_t color)
 
 static esp_err_t app_touch_init(void)
 {
-    /* Initilize I2C */
     const i2c_config_t i2c_conf = {
         .mode = I2C_MODE_MASTER,
         .sda_io_num = EXAMPLE_TOUCH_I2C_SDA,
@@ -212,31 +211,25 @@ static esp_err_t app_touch_init(void)
         .scl_io_num = EXAMPLE_TOUCH_I2C_SCL,
         .scl_pullup_en = GPIO_PULLUP_DISABLE,
         .master.clk_speed = EXAMPLE_TOUCH_I2C_CLK_HZ};
-    ESP_RETURN_ON_ERROR(i2c_param_config(EXAMPLE_TOUCH_I2C_NUM, &i2c_conf), TAG, "I2C configuration failed");
-    ESP_RETURN_ON_ERROR(i2c_driver_install(EXAMPLE_TOUCH_I2C_NUM, i2c_conf.mode, 0, 0, 0), TAG, "I2C initialization failed");
-
-    /* Initialize touch HW */
+    ESP_RETURN_ON_ERROR(i2c_param_config(EXAMPLE_TOUCH_I2C_NUM, &i2c_conf), TAG, "I2C conf failed");
+    ESP_RETURN_ON_ERROR(i2c_driver_install(EXAMPLE_TOUCH_I2C_NUM, i2c_conf.mode, 0, 0, 0), TAG, "I2C init failed");
     const esp_lcd_touch_config_t tp_cfg = {
         .x_max = EXAMPLE_LCD_H_RES,
         .y_max = EXAMPLE_LCD_V_RES,
+        // ... kod kontynuacji konfiguracji I2C oraz panelu dotykowego GT911 ...
         .rst_gpio_num = GPIO_NUM_NC,
         .int_gpio_num = GPIO_NUM_NC,
-        .levels = {
-            .reset = 0,
-            .interrupt = 0,
-        },
-        .flags = {
-            .swap_xy = 0,
-            .mirror_x = 0,
-            .mirror_y = 0,
-        },
-    };
+        .levels = {.reset = 0, .interrupt = 0},
+        .flags = {.swap_xy = 0, .mirror_x = 0, .mirror_y = 0}};
     esp_lcd_panel_io_handle_t tp_io_handle = NULL;
-    const esp_lcd_panel_io_i2c_config_t tp_io_config = ESP_LCD_TOUCH_IO_I2C_GT911_CONFIG();
-    ESP_RETURN_ON_ERROR(esp_lcd_new_panel_io_i2c((esp_lcd_i2c_bus_handle_t)EXAMPLE_TOUCH_I2C_NUM, &tp_io_config, &tp_io_handle), TAG, "");
+    esp_lcd_panel_io_i2c_config_t tp_io_config = ESP_LCD_TOUCH_IO_I2C_GT911_CONFIG();
+    tp_io_config.scl_speed_hz = 0;
+    ESP_RETURN_ON_ERROR(esp_lcd_new_panel_io_i2c((esp_lcd_i2c_bus_handle_t)EXAMPLE_TOUCH_I2C_NUM, &tp_io_config, &tp_io_handle), TAG, "IO init failed");
     return esp_lcd_touch_new_i2c_gt911(tp_io_handle, &tp_cfg, &touch_handle);
 }
 
+//===================================================================================================================
+/* LVGL initialization */
 static esp_err_t app_lvgl_init(void)
 {
     /* Initialize LVGL */
