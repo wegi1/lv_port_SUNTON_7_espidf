@@ -6,6 +6,8 @@ An ultra-fast, native **ESP-IDF v5.5+** port of the **LVGL v9.3.0** graphics lib
 This project runs entirely on raw `esp_lcd` drivers with an aggressive **20 MHz Pixel Clock**, pushing hardware capabilities way beyond standard Arduino or PlatformIO abstraction layers.
 ![Screenshot](/PICTURES/01.jpg)
 ![Screenshot](/PICTURES/02.jpg)
+![Screenshot](/PICTURES/lvgl.jpg)
+
 ---
 
 ## 🚀 Key Features & Performance
