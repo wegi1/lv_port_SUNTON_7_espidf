@@ -1,9 +1,9 @@
 
 # ESP-IDF LVGL v9 Port for Sunton 7" Smart Display (ESP32-8048S070)
 
-An ultra-fast, native **ESP-IDF v5.5+** port of the **LVGL v9.3.0** graphics library for the popular, budget-friendly 7-inch Sunton Smart Display (**ESP32-8048S070**). 
+An ultra-fast, native **ESP-IDF v5.5+** port of the **LVGL v9.5.0** graphics library for the popular, budget-friendly 7-inch Sunton Smart Display (**ESP32-8048S070**). 
 
-This project runs entirely on raw `esp_lcd` drivers with an aggressive **20 MHz Pixel Clock**, pushing hardware capabilities way beyond standard Arduino or PlatformIO abstraction layers.
+This project runs entirely on raw `esp_lcd` drivers with an aggressive **15 MHz Pixel Clock**, pushing hardware capabilities way beyond standard Arduino or PlatformIO abstraction layers.
 ![Screenshot](/PICTURES/01.jpg)
 ![Screenshot](/PICTURES/02.jpg)
 ![Screenshot](/PICTURES/lvgl.jpg)
